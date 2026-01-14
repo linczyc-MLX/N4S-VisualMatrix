@@ -1,0 +1,75 @@
+/* VMX UI overrides – loaded once from App.tsx */
+
+/* Make grids/tables shrink-safe */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* In CSS grid, children default min-width:auto which can force overflow */
+.compareGrid > * { min-width: 0; }
+
+/* Prevent band highlight/hover effects from looking like they "run off page" */
+.bandBtn {
+  max-width: 100%;
+}
+
+/* Keep the active ring fully contained */
+.bandBtn.active {
+  box-shadow:
+    inset 0 0 0 2px rgba(59,130,246,.55),
+    inset 0 0 0 4px rgba(59,130,246,.15);
+}
+
+/* Soften hover shadow to avoid edge bleed on the HIGH column */
+.bandBtn:hover {
+  box-shadow: 0 4px 10px rgba(15,23,42,.10);
+}
+
+/* Stabilize matrix table layout */
+.matrixTable {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* Allocation & Flags status cell alignment */
+.allocTable td.statusCell {
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* Allocation status circles: slightly smaller + more breathing room from the right edge */
+.allocTable th:last-child,
+.allocTable td.statusCell {
+  padding-right: 18px;
+  padding-left: 18px;
+  width: 150px;
+}
+
+/* Match the smaller circle to the new cell width */
+.statusCircle {
+  width: 72px;
+  height: 72px;
+  gap: 4px;
+}
+.statusText { font-size: 16px; }
+.statusTextSmall { font-size: 11px; }
+.statusArrow { font-size: 12px; }
+
+/* Guardrail snapshot tables (AdvisoryReadout) */
+.smallTh {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #64748b;
+  font-weight: 900;
+  text-align: left;
+  padding: 10px 10px;
+  border-bottom: 1px solid rgba(148,163,184,.22);
+}
+.smallTd {
+  padding: 10px 10px;
+  border-bottom: 1px solid rgba(148,163,184,.18);
+  vertical-align: middle;
+}
+
+/* Default panel should not overflow outside its rounded corners */
+.panel { overflow: hidden; }

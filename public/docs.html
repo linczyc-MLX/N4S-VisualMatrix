@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VMX Documentation — Visual Matrix</title>
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --card:#101827;
+      --card2:#0f172a;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 12px 40px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background: radial-gradient(1400px 800px at 20% 0%, rgba(34,197,94,.08), transparent 55%),
+                  radial-gradient(1000px 700px at 80% 20%, rgba(59,130,246,.08), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+    }
+    a{color:#93c5fd; text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:28px 18px 80px;
+    }
+    .top{
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    .title h1{
+      margin:0;
+      font-size:28px;
+      letter-spacing:.2px;
+    }
+    .title .sub{
+      color:var(--muted);
+      margin-top:6px;
+      max-width:820px;
+      line-height:1.35;
+      font-size:14px;
+    }
+    .chips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .chip{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .chip strong{color:var(--text); font-weight:700;}
+    .grid{
+      display:grid;
+      grid-template-columns: 260px 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 880px){
+      .grid{grid-template-columns:1fr;}
+      .nav{position:relative; top:0;}
+    }
+    .nav{
+      position:sticky;
+      top:14px;
+      border:1px solid var(--border);
+      background:rgba(16,24,39,.72);
+      backdrop-filter: blur(8px);
+      border-radius:14px;
+      box-shadow: var(--shadow);
+      padding:12px;
+    }
+    .nav h3{
+      margin:6px 8px 8px;
+      font-size:12px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    .nav a{
+      display:block;
+      padding:9px 10px;
+      border-radius:10px;
+      color:var(--text);
+      font-size:14px;
+      border:1px solid transparent;
+    }
+    .nav a:hover{
+      background:rgba(255,255,255,.04);
+      border-color: var(--border);
+      text-decoration:none;
+    }
+    .card{
+      border:1px solid var(--border);
+      background:rgba(16,24,39,.72);
+      backdrop-filter: blur(8px);
+      border-radius:14px;
+      box-shadow: var(--shadow);
+      padding:16px 16px;
+    }
+    .section{
+      margin-bottom:14px;
+      padding-bottom:14px;
+      border-bottom:1px dashed rgba(255,255,255,.10);
+    }
+    .section:last-child{border-bottom:none; margin-bottom:0; padding-bottom:0;}
+    .section h2{
+      margin:0 0 8px;
+      font-size:18px;
+      letter-spacing:.2px;
+    }
+    .section p{
+      margin:8px 0;
+      color:var(--text);
+      line-height:1.45;
+      font-size:14px;
+    }
+    .muted{color:var(--muted);}
+    .callout{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+      padding:12px 12px;
+      border-radius:12px;
+      margin:10px 0;
+    }
+    .callout .hdr{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      font-weight:800;
+      margin-bottom:6px;
+      font-size:13px;
+      letter-spacing:.02em;
+    }
+    .badge{
+      display:inline-block;
+      padding:3px 8px;
+      border-radius:999px;
+      font-size:11px;
+      border:1px solid var(--border);
+      color:var(--muted);
+    }
+    .badge.ok{color:#86efac;}
+    .badge.warn{color:#fde68a;}
+    .badge.bad{color:#fca5a5;}
+    ul,ol{margin:8px 0 8px 20px;}
+    li{margin:6px 0; font-size:14px; line-height:1.4;}
+    code{
+      font-family:var(--mono);
+      font-size:12.5px;
+      color:#e5e7eb;
+      background:rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.10);
+      padding:2px 6px;
+      border-radius:8px;
+      white-space:nowrap;
+    }
+    pre{
+      overflow:auto;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.35);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+      margin:10px 0;
+    }
+    pre code{
+      background:transparent;
+      border:none;
+      padding:0;
+      white-space:pre;
+      display:block;
+      line-height:1.45;
+      font-size:12.5px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      margin:10px 0;
+      font-size:13.5px;
+    }
+    th,td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      color:var(--muted);
+      background:rgba(255,255,255,.03);
+      font-weight:800;
+      letter-spacing:.01em;
+    }
+    tr:last-child td{border-bottom:none;}
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      font-weight:800;
+      font-size:12px;
+      color:var(--text);
+    }
+    .dot{width:9px; height:9px; border-radius:999px; background:var(--accent);}
+    .dot.warn{background:var(--warn);}
+    .dot.bad{background:var(--danger);}
+    .foot{
+      margin-top:14px;
+      color:var(--muted);
+      font-size:12.5px;
+      line-height:1.45;
+    }
+    .kpi{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 880px){ .kpi{grid-template-columns:1fr;} }
+    .kpi .box{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      border-radius:12px;
+      padding:12px;
+    }
+    .kpi .box .label{color:var(--muted); font-size:12px; letter-spacing:.06em; text-transform:uppercase;}
+    .kpi .box .val{font-weight:900; font-size:16px; margin-top:6px;}
+    .printRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:900;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .btn:hover{background:rgba(255,255,255,.06);}
+    @media print{
+      body{background:white; color:#111827;}
+      .nav{display:none;}
+      .card{box-shadow:none; background:white; border-color:#e5e7eb;}
+      .wrap{max-width:none;}
+      a{color:#111827;}
+      code,pre{background:#f3f4f6; border-color:#e5e7eb; color:#111827;}
+      th{background:#f3f4f6; color:#111827;}
+      .chip,.badge,.pill{border-color:#e5e7eb; background:#f9fafb; color:#111827;}
+      .dot{background:#16a34a;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="title">
+        <h1>VMX Documentation — Visual Matrix</h1>
+        <div class="sub">
+          VMX is a budgeting alignment tool: you set scenario “bands” by category, VMX calculates cost allocation and flags
+          categories that are under/over target ranges (“guardrails”). You can compare two regions/benchmarks at the same tier,
+          see delta drivers, and export a client-ready PDF and ZIP pack with snapshots for downstream teams.
+        </div>
+      </div>
+      <div class="chips" aria-label="doc metadata">
+        <div class="chip"><strong>Includes:</strong> Hard Costs</div>
+        <div class="chip"><strong>Includes:</strong> Soft Costs</div>
+        <div class="chip"><strong>Includes:</strong> Cash Flow</div>
+        <div class="chip"><strong>Includes:</strong> Exports</div>
+        <div class="chip"><strong>Includes:</strong> Guardrails</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="nav" role="navigation" aria-label="Documentation sections">
+        <h3>Contents</h3>
+        <a href="#faststart">Fast Start</a>
+        <a href="#concepts">Core Concepts</a>
+        <a href="#workflow_single">Workflow — Single Scenario</a>
+        <a href="#workflow_compare">Workflow — Compare Mode</a>
+        <a href="#guardrails">Guardrails & Status</a>
+        <a href="#deltaheat">Delta Heat & Drivers</a>
+        <a href="#softcosts">Soft Costs</a>
+        <a href="#escalation">Escalation & Duration</a>
+        <a href="#cashflow">Cash Flow Draw Schedule</a>
+        <a href="#admin">Admin Panels (Benchmarks / Guardrails / JSON)</a>
+        <a href="#exports">Exports (PDF / Client Pack)</a>
+        <a href="#provenance">Versioning & Data Provenance</a>
+        <a href="#technical">Appendix — Technical Overview</a>
+        <div class="foot">
+          Tip: Press <code>Ctrl</code> / <code>Cmd</code> + <code>F</code> to search within this guide.
+        </div>
+      </div>
+
+      <div class="card" role="main">
+        <div id="faststart" class="section">
+          <h2>Fast Start (5 minutes)</h2>
+          <ol>
+            <li>Set <strong>Area</strong> (sq ft).</li>
+            <li>Select a <strong>Tier</strong> (Select / Reserve / Signature / Legacy).</li>
+            <li>(Optional) Enable <strong>Compare Mode</strong> to choose Scenario A and Scenario B regions.</li>
+            <li>For each category row, click a band: <span class="pill"><span class="dot"></span>LOW</span> / <span class="pill"><span class="dot"></span>MEDIUM</span> / <span class="pill"><span class="dot"></span>HIGH</span>.</li>
+            <li>Review the <strong>Allocation & Flags</strong> table. Categories are flagged if they land <em>below</em> or <em>above</em target guardrails.</li>
+            <li>In Compare Mode, review <strong>Delta Heat (B − A)</strong> to see the cost drivers.</li>
+            <li>Open <strong>Soft Costs + Escalation + Cash Flow</strong> to add schedule-based escalation and draw profiling.</li>
+            <li>Export: use <strong>Export PDF Report</strong> for a client-facing print, and <strong>Export Client Pack (.zip)</strong> for a meeting-ready bundle.</li>
+          </ol>
+
+          <div class="callout">
+            <div class="hdr"><span class="badge ok">Best practice</span> Make one change at a time</div>
+            <p class="muted">Adjust one category band, then check how totals and guardrail flags move. VMX is designed for iterative convergence.</p>
+          </div>
+        </div>
+
+        <div id="concepts" class="section">
+          <h2>Core Concepts</h2>
+          <table>
+            <thead>
+              <tr><th>Concept</th><th>Meaning</th><th>Why it matters</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Band</strong> (Low/Medium/High)</td>
+                <td>Per-category $/sf setting from the benchmark dataset.</td>
+                <td>Represents the expected spend level for that category within the selected tier/region.</td>
+              </tr>
+              <tr>
+                <td><strong>Allocation</strong> (% of total)</td>
+                <td>The category’s share of total cost, based on selected bands.</td>
+                <td>Guardrails compare allocation to directional target ranges for healthier budget composition.</td>
+              </tr>
+              <tr>
+                <td><strong>Guardrails</strong> (targets)</td>
+                <td>Target % range for each category allocation (min/max).</td>
+                <td>Flags categories that are under/over weighted (often a risk to program quality or budget control).</td>
+              </tr>
+              <tr>
+                <td><strong>Compare Mode</strong></td>
+                <td>Two scenarios at the same tier (Scenario A and B regions).</td>
+                <td>Enables delta analysis and driver identification across markets/assumptions.</td>
+              </tr>
+              <tr>
+                <td><strong>Delta Heat</strong></td>
+                <td>Ranked and “heated” list of category deltas (B − A).</td>
+                <td>Focuses attention on the handful of categories that explain most of the scenario difference.</td>
+              </tr>
+              <tr>
+                <td><strong>Soft Costs</strong></td>
+                <td>Fees + procurement + insurance/permits/legal + schedule-based escalation.</td>
+                <td>Provides a more realistic “all-in” view and supports cash flow planning.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="workflow_single" class="section">
+          <h2>Workflow — Single Scenario</h2>
+          <ol>
+            <li><strong>Set Area</strong>: confirm the project size is correct.</li>
+            <li><strong>Select Tier</strong>: align to expected quality/market positioning.</li>
+            <li><strong>Pick Bands</strong>: set each category Low/Medium/High to represent the intended spend profile.</li>
+            <li><strong>Review Allocation</strong>: check total cost and $/sf, then scan the Status column for below/above range flags.</li>
+            <li><strong>Adjust</strong>: shift only the categories that are materially driving the budget or are outside guardrails.</li>
+          </ol>
+
+          <div class="kpi">
+            <div class="box">
+              <div class="label">Output</div>
+              <div class="val">Hard Cost Total + $/sf</div>
+              <div class="muted">The VMX baseline for budget alignment.</div>
+            </div>
+            <div class="box">
+              <div class="label">Signal</div>
+              <div class="val">Guardrail Flags</div>
+              <div class="muted">Below/Above range indicates composition risk.</div>
+            </div>
+            <div class="box">
+              <div class="label">Control</div>
+              <div class="val">Band Selection</div>
+              <div class="muted">Your primary lever for shaping the budget.</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="workflow_compare" class="section">
+          <h2>Workflow — Compare Mode</h2>
+          <ol>
+            <li>Enable <strong>Compare Mode</strong>.</li>
+            <li>Select <strong>Scenario A region</strong> and <strong>Scenario B region</strong> (same tier).</li>
+            <li>Adjust bands independently for A and B if you want to model different allocations per region.</li>
+            <li>Review <strong>Delta Heat</strong> (B − A) to identify the largest cost drivers and the “heat” classification.</li>
+            <li>Use <strong>Drivers only</strong> to focus the discussion on the few categories that explain the delta.</li>
+          </ol>
+
+          <div class="callout">
+            <div class="hdr"><span class="badge warn">Tip</span> Keep tier constant</div>
+            <p class="muted">Compare Mode is intended for regional benchmark differences and allocation adjustments at a consistent quality tier.</p>
+          </div>
+        </div>
+
+        <div id="guardrails" class="section">
+          <h2>Guardrails & Status</h2>
+          <p>
+            Each category has a <strong>target allocation range</strong> (min% to max% of total). VMX compares the computed allocation to this range:
+          </p>
+          <ul>
+            <li><span class="pill"><span class="dot"></span>OK</span> — allocation is within target range.</li>
+            <li><span class="pill"><span class="dot warn"></span>Below range</span> — allocation is under the target minimum.</li>
+            <li><span class="pill"><span class="dot bad"></span>Above range</span> — allocation is over the target maximum.</li>
+          </ul>
+
+          <div class="callout">
+            <div class="hdr"><span class="badge ok">Interpretation</span> Guardrails are directional, not contract pricing</div>
+            <p class="muted">Guardrails are designed to help maintain healthy budget composition. They are not a substitute for contractor pricing, bids, or procurement quotes.</p>
+          </div>
+        </div>
+
+        <div id="deltaheat" class="section">
+          <h2>Delta Heat & Drivers</h2>
+          <p>
+            Delta Heat ranks category differences between Scenario B and Scenario A. VMX can classify “heat” by impact versus Scenario A’s total.
+          </p>
+          <ul>
+            <li><strong>Medium/High thresholds</strong> control how strongly categories are highlighted.</li>
+            <li><strong>Drivers</strong> can be defined as Top-N categories by absolute delta, or by an impact % threshold (with a cap).</li>
+          </ul>
+          <pre><code>Driver definitions:
+- Top N: highlight the top N non-zero |Δ Cost|
+- Percent threshold: highlight categories with impact ≥ threshold (cap max drivers)</code></pre>
+        </div>
+
+        <div id="softcosts" class="section">
+          <h2>Soft Costs</h2>
+          <p>
+            Soft Costs extend VMX from “hard cost alignment” to an <strong>all-in project view</strong>.
+            Defaults can be adjusted via JSON (visible to all), without editing code.
+          </p>
+          <table>
+            <thead><tr><th>Category</th><th>Default basis</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>Architect fee</strong></td>
+                <td>% of Hard</td>
+                <td>Fee-only. Directional; can be tuned by market.</td>
+              </tr>
+              <tr>
+                <td><strong>Interior Designer fee</strong></td>
+                <td>% of Hard</td>
+                <td>Fee-only base, plus procurement and logistics separate.</td>
+              </tr>
+              <tr>
+                <td><strong>ID Procurement fee</strong></td>
+                <td>% of FF&amp;E</td>
+                <td>Cost-plus fee model for specified FF&amp;E procurement (editable default).</td>
+              </tr>
+              <tr>
+                <td><strong>Freight / Warehousing / Installation</strong></td>
+                <td>% of FF&amp;E</td>
+                <td>Default 20% of FF&amp;E.</td>
+              </tr>
+              <tr>
+                <td><strong>Permits / Authority fees</strong></td>
+                <td>% of Hard</td>
+                <td>Jurisdiction-dependent; tune for CA vs ME.</td>
+              </tr>
+              <tr>
+                <td><strong>Insurance</strong></td>
+                <td>% of Hard</td>
+                <td>Builders risk / liability and related coverage assumptions.</td>
+              </tr>
+              <tr>
+                <td><strong>Legal / accounting</strong></td>
+                <td>% of Hard</td>
+                <td>Typically small but non-zero for high-end projects.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="escalation" class="section">
+          <h2>Escalation & Duration</h2>
+          <p>
+            VMX supports schedule-driven escalation with a default duration of <strong>4 years</strong>.
+            By default, escalation is applied to <strong>Hard Costs only</strong>, and this scope is editable in JSON.
+          </p>
+          <div class="callout">
+            <div class="hdr"><span class="badge ok">Default</span> 4 years, 6% annual</div>
+            <p class="muted">Escalation is applied via the cash flow weights per year. If the schedule changes, the escalation effect shifts accordingly.</p>
+          </div>
+        </div>
+
+        <div id="cashflow" class="section">
+          <h2>Cash Flow Draw Schedule</h2>
+          <p>
+            The Cash Flow tab provides a year-by-year distribution of spend. Defaults include:
+          </p>
+          <ul>
+            <li><strong>4-year default</strong>: 15% / 30% / 35% / 20%</li>
+            <li><strong>3-year option</strong>: available as a preset</li>
+          </ul>
+          <p class="muted">
+            VMX uses the selected schedule to estimate escalation impact over time and to provide a meeting-ready draw table.
+          </p>
+        </div>
+
+        <div id="admin" class="section">
+          <h2>Admin Panels (Benchmarks / Guardrails / JSON)</h2>
+          <p>
+            VMX includes configuration panels that are intentionally <strong>visible to all</strong> in this build:
+          </p>
+          <ul>
+            <li><strong>Benchmark Library Admin</strong>: edit per-category $/sf bands by tier and region.</li>
+            <li><strong>Guardrails & Provenance</strong>: edit delta thresholds, driver rules, dataset metadata.</li>
+            <li><strong>Soft Costs JSON</strong>: edit rates, escalation scope, duration, and schedules without code edits.</li>
+          </ul>
+          <div class="callout">
+            <div class="hdr"><span class="badge warn">Note</span> Local persistence</div>
+            <p class="muted">Admin settings persist in your browser via localStorage. If you switch machines/browsers, defaults will apply until reconfigured.</p>
+          </div>
+        </div>
+
+        <div id="exports" class="section">
+          <h2>Exports (PDF / Client Pack)</h2>
+          <ul>
+            <li><strong>Export PDF Report</strong> — prints a clean, client-facing report. Tip: close overlays before printing.</li>
+            <li><strong>Export Client Pack (.zip)</strong> — exports a bundle containing:
+              <ul>
+                <li>PDF report</li>
+                <li>Scenario snapshot JSON</li>
+                <li>CSV tables (allocation, deltas, cash flow)</li>
+                <li>Soft cost configuration JSON</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div id="provenance" class="section">
+          <h2>Versioning & Data Provenance</h2>
+          <p>
+            VMX displays a provenance line in the UI and exports:
+          </p>
+          <pre><code>VMX vX.Y | Dataset: &lt;name&gt; | Updated: &lt;date&gt; | Assumptions: &lt;text&gt;</code></pre>
+        </div>
+
+        <div id="technical" class="section">
+          <h2>Appendix — Technical Overview</h2>
+          <ul>
+            <li><code>src/domain/</code> — calculation engine (scenario results, deltas)</li>
+            <li><code>src/data/</code> — benchmarks storage (local persistence with auto-migration fallback)</li>
+            <li><code>src/components/</code> — UI components (Matrix, Advisory, Admin, Documentation, Soft Costs)</li>
+            <li><code>src/utils/</code> — formatting, exports, soft cost and cash flow computations</li>
+          </ul>
+
+          <div class="callout">
+            <div class="hdr"><span class="badge ok">Auto-migration fallback</span> Prevents white screens</div>
+            <p class="muted">
+              Benchmark and settings are stored in localStorage. VMX validates/migrates stored data on load and falls back to demo defaults if invalid.
+            </p>
+          </div>
+
+          <div class="printRow">
+            <button class="btn" onclick="window.print()">Print this documentation</button>
+            <span class="muted">Tip: printing from this page produces a clean PDF.</span>
+          </div>
+        </div>
+
+        <div class="foot">
+          This guide is intended for budgeting alignment and early-stage owner-side decision making. It is not a substitute for professional design services, bidding, or procurement documentation.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

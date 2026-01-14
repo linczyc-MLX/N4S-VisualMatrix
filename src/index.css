@@ -1,0 +1,397 @@
+:root {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.35;
+  font-weight: 400;
+  color: #0f172a;
+  background: #f6f7fb;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f6f7fb;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e6eef8;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+h1 { font-size: 28px; letter-spacing: -0.02em; }
+h2 { font-size: 18px; letter-spacing: -0.02em; }
+h3 { font-size: 16px; letter-spacing: -0.02em; }
+
+.muted {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d6e2f1;
+  border-radius: 12px;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+.input:focus {
+  border-color: #9dbbff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid #e6eef8;
+  border-radius: 14px;
+}
+.table th,
+.table td {
+  padding: 12px 12px;
+  border-bottom: 1px solid #eef3fb;
+  vertical-align: middle;
+}
+.table thead th {
+  background: #f7faff;
+  font-size: 12px;
+  font-weight: 900;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.table.small th,
+.table.small td {
+  padding: 10px 10px;
+}
+.table tr:last-child td { border-bottom: none; }
+
+.adminHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.adminTopGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.compareGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+  margin-top: 12px;
+}
+
+/* Compare mode: give STATUS circles breathing room (matches non-compare feel) */
+.compareGrid .statusCell {
+  width: 160px;
+}
+
+.summaryTop {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.big {
+  font-size: 28px;
+  font-weight: 950;
+  letter-spacing: -0.03em;
+  margin-top: 3px;
+}
+
+.error {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.catLabel {
+  font-weight: 900;
+}
+
+.bandBtn {
+  width: 100%;
+  text-align: left;
+  border-radius: 14px;
+  padding: 12px 12px;
+  border: 1px solid #dbe7f7;
+  background: #ffffff;
+  cursor: pointer;
+  transition: transform 60ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+.bandBtn:hover {
+  border-color: #b6ccff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+.bandBtn:active {
+  transform: translateY(1px);
+}
+.bandBtn.active {
+  border-color: #7aa6ff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18);
+}
+
+.bandBtn.low { background: #ecfdf5; }
+.bandBtn.medium { background: #eff6ff; }
+.bandBtn.high { background: #fff7ed; }
+
+.bandTitle {
+  font-size: 12px;
+  font-weight: 950;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.bandSub {
+  font-size: 12px;
+  font-weight: 850;
+  color: #334155;
+  margin-top: 4px;
+}
+
+.linkBtn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  color: #2563eb;
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Delta table styling */
+.deltaTable td, .deltaTable th {
+  padding: 10px 10px;
+}
+.deltaRow {
+  background: #fff;
+}
+.deltaRow.medium {
+  background: #fff7ed;
+}
+.deltaRow.high {
+  background: #fee2e2;
+}
+
+.deltaPill {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  line-height: 1;
+}
+.deltaPill.inc {
+  background: #fee2e2;
+  color: #991b1b;
+}
+.deltaPill.dec {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* =========================
+   Global button styling
+   - Applies to ALL buttons except the band selection buttons (which have their own styling).
+   - This brings back consistent hover/active/down states for "Add Region", "Rename Region",
+     "Reset tier", "Copy into tier", "Save Snapshot", "Normalize / Fill ranges", etc.
+   ========================= */
+button:not(.bandBtn) {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid #d6e2f1;
+  background: #ffffff;
+  color: #0b1f3b;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 850;
+  font-size: 13px;
+  line-height: 1.05;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease, transform 60ms ease, box-shadow 140ms ease;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+}
+
+button:not(.bandBtn):hover {
+  background: #f1f6ff;
+  border-color: #b6ccff;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+}
+
+button:not(.bandBtn):active {
+  transform: translateY(1px);
+  background: #e7efff;
+  border-color: #9dbbff;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+}
+
+button:not(.bandBtn):focus-visible {
+  outline: 3px solid rgba(59, 130, 246, 0.35);
+  outline-offset: 2px;
+}
+
+button:not(.bandBtn):disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Slightly larger "top-right utility" buttons when they appear in headers */
+.headerActions button:not(.bandBtn),
+.adminHeader button:not(.bandBtn) {
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+/* =========================
+   Allocation & Flags – fixed, readable status badges
+   - Makes Scenario A and Scenario B row heights match, regardless of OK vs out-of-range.
+   - Restores the green "OK" circle and keeps the arrow positions as designed.
+   ========================= */
+
+.statusCell {
+  width: 120px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.statusCircle {
+  width: 86px;
+  height: 86px;
+  border-radius: 999px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 0 auto;
+  font-weight: 950;
+  letter-spacing: -0.01em;
+  text-align: center;
+  line-height: 1.05;
+  user-select: none;
+}
+
+.statusCircle.ok {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.statusCircle.alert {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.statusArrow {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.statusText {
+  font-size: 16px;
+}
+
+.statusTextSmall {
+  font-size: 12px;
+  font-weight: 900;
+  opacity: 0.9;
+}
+
+/* Ensure cards always occupy the same full width (helps edge alignment consistency). */
+.card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ============================
+   Advisory Readout – Status Pills
+   Fixes: Below/Above overlap + illegible wrapping
+   ============================ */
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 6px 10px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;           /* key: prevents stacked/overlap */
+  white-space: nowrap;      /* key: prevents “Below” / “range” line breaks */
+
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.statusPill.ok {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.statusPill.below,
+.statusPill.above {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.statusPill .arrow {
+  font-size: 12px;
+  line-height: 1;
+  transform: translateY(-0.5px);
+}
+
+/* If your advisory tables are tight, enforce a sensible status column width */
+.advisoryTable th.statusCol,
+.advisoryTable td.statusCol {
+  width: 140px;
+}
+
+/* General: don’t let table cells clip badges */
+.advisoryTable td {
+  overflow: visible;
+  vertical-align: middle;
+}
+
