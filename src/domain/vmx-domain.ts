@@ -24,13 +24,15 @@ export interface CategoryDef {
 }
 
 export const VMX_CATEGORIES: CategoryDef[] = [
-  { id: "FACILITATING", label: "Facilitating Works", sortOrder: 1 },
+  // US-first: ASTM UniFormat-inspired elemental buckets (7-category model)
+  // NOTE: We preserve the internal IDs for backwards compatibility (storage/export).
+  { id: "FACILITATING", label: "Site Prep & Infrastructure", sortOrder: 1 },
   { id: "SUBSTRUCTURE", label: "Substructure", sortOrder: 2 },
-  { id: "SUPERSTRUCTURE", label: "Superstructure", sortOrder: 3 },
-  { id: "INTERNAL_FINISHES", label: "Internal Finishes", sortOrder: 4 },
-  { id: "FF_E", label: "FF&E", sortOrder: 5 },
-  { id: "SERVICES", label: "Services", sortOrder: 6 },
-  { id: "EXTERNAL_WORKS", label: "External Works", sortOrder: 7 },
+  { id: "SUPERSTRUCTURE", label: "Shell", sortOrder: 3 },
+  { id: "INTERNAL_FINISHES", label: "Interiors", sortOrder: 4 },
+  { id: "FF_E", label: "Equipment & Furnishings", sortOrder: 5 },
+  { id: "SERVICES", label: "Services (MEP)", sortOrder: 6 },
+  { id: "EXTERNAL_WORKS", label: "Exterior Improvements", sortOrder: 7 },
 ];
 
 export interface BenchmarkBand {
