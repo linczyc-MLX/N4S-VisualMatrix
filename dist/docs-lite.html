@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VMX Documentation (Lite)</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#0f172a;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.62);
+      --line:rgba(255,255,255,.10);
+      --chip:rgba(255,255,255,.08);
+      --accent:#9db9ff;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: radial-gradient(1200px 600px at 50% -10%, rgba(157,185,255,.18), transparent 60%), var(--bg);
+      color:var(--text);
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 56px}
+    .hero{background: linear-gradient(135deg, rgba(12,18,32,.92), rgba(6,10,20,.92));
+      border:1px solid var(--line);border-radius:18px;padding:22px 18px 18px;box-shadow: 0 20px 70px rgba(0,0,0,.35)}
+    h1{margin:0 0 8px;font-size:34px;letter-spacing:-.02em}
+    .muted{color:var(--muted)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .chip{font-size:12px;padding:6px 10px;border-radius:999px;background:var(--chip);border:1px solid var(--line)}
+    .card{margin-top:16px;background: rgba(15,23,42,.75);border:1px solid var(--line);border-radius:18px;padding:16px}
+    h2{margin:0 0 10px;font-size:18px}
+    ol,ul{margin:8px 0 0 18px}
+    li{margin:6px 0}
+    .note{margin-top:12px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background: rgba(0,0,0,.18)}
+    .kbd{display:inline-block;font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas; font-size:12px;
+      padding:2px 6px;border-radius:8px;border:1px solid var(--line);background: rgba(255,255,255,.06)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>VMX Lite — Client Dashboard</h1>
+      <div class="muted">A streamlined, client-friendly view powered by the VMX Pro engine.</div>
+      <div class="chips">
+        <span class="chip">All-in Grand Total</span>
+        <span class="chip">Location + Typology</span>
+        <span class="chip">Land + Build</span>
+        <span class="chip">PDF / Client Pack</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Fast Start (2 minutes)</h2>
+      <ol>
+        <li>Enter <strong>Client Name</strong> + <strong>Project Name</strong> (used on PDFs/exports).</li>
+        <li>Set <strong>Area (sq ft)</strong> and select a <strong>Tier</strong> (Select / Reserve / Signature / Legacy).</li>
+        <li>Choose <strong>Location</strong> (automatic multiplier) and <strong>Typology</strong> (site condition).</li>
+        <li>Add <strong>Land Acquisition Cost</strong> if you want a true all-in total.</li>
+        <li>Review the <strong>Grand Total Project Cost</strong> and the headline category split.</li>
+      </ol>
+      <div class="note">
+        Tip: Use <span class="kbd">Compare Mode</span> to show Scenario B and quickly communicate the delta.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>What Lite shows (and hides)</h2>
+      <ul>
+        <li><strong>Shows:</strong> totals, category allocation, key drivers, and exports.</li>
+        <li><strong>Hides:</strong> band-by-band row editing, guardrail diagnostics, admin tools.</li>
+      </ul>
+      <div class="note">
+        If you need deeper tuning or compliance checks, click <strong>Open VMX Pro</strong> (professional-only workflow).
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Exports</h2>
+      <ul>
+        <li><strong>Export PDF Report</strong> for a client-ready snapshot.</li>
+        <li><strong>Export Client Pack (.zip)</strong> to bundle PDF + images for downstream teams.</li>
+      </ul>
+      <p class="muted">End of Lite guide.</p>
+    </div>
+  </div>
+</body>
+</html>
